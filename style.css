@@ -1,0 +1,39 @@
+
+.grid{
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+.grid-row{
+  width: 99%;
+  height: 33.33%;
+}
+.grid-cell{
+  width: 32%;
+  height: 98%;
+  position: relative;
+  float: left;
+  background-color: #C7C7C7;
+  border: 2px white solid;
+  text-align: center;
+  font-size: 8em;
+  font-family: verdana, sans-serif;
+  color: white;
+  cursor: pointer;
+}
+
+#reset{
+  width: 486px;
+  height: 50px;
+  margin-top: 25px;
+  background-color: #15A7A0;
+  border-radius: 0px;
+  border-style: none;
+  font-weight: normal;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+}

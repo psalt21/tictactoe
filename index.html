@@ -3,15 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>TicTacToe</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css">
   </head>
   <body>
 
-    <div>
-      <button onclick="insertText()">Click Me!</button>
+    <div class="grid">
+      <div class="grid-row">
+        <div class="grid-cell" id="0-0" onclick="changeBlock('0-0')"></div>
+        <div class="grid-cell" id="0-1" onclick="changeBlock('0-1')"></div>
+        <div class="grid-cell" id="0-2" onclick="changeBlock('0-2')"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell" id="1-0" onclick="changeBlock('1-0')"></div>
+        <div class="grid-cell" id="1-1" onclick="changeBlock('1-1')"></div>
+        <div class="grid-cell" id="1-2" onclick="changeBlock('1-2')"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell" id="2-0" onclick="changeBlock('2-0')"></div>
+        <div class="grid-cell" id="2-1" onclick="changeBlock('2-1')"></div>
+        <div class="grid-cell" id="2-2" onclick="changeBlock('2-2')"></div>
+      </div>
+      <div>
+        <button id="reset" onclick="clearGrid()">Reset Game</button>
+      </div>
     </div>
 
-    <p>This is the response:</p>
 
-    <div id="response"></div>
   </body>
+  <script type="text/javascript" src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 </html>
