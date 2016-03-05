@@ -18,9 +18,10 @@ var possibleWins = [
 
 var colors = ['#FF6060', '#4D4DFF'];
 var letters = ['X', 'O'];
-var i = 0;
+var currentColor = 0;
 var currentLetter = 0;
 var numberOfTurns = 0;
+var keepPlaying = true;
 
 
 // function test(blockName){
@@ -28,70 +29,87 @@ var numberOfTurns = 0;
 // }
 
 function changeBlock(blockName){
-  if(grid[blockName[0]][blockName[2]] == ''){
-    addToGridArray(blockName);
+
+  if(keepPlaying === false){
+    swal('We already have a winner, click \"Reset Game\" to play again!')
   }else{
-    swal('This spot is already taken! Please choose another.')
+    if(grid[blockName[0]][blockName[2]] == '' && keepPlaying === true){
+      addToGridArray(blockName);
+    }else{
+      swal('This spot is already taken! Please choose another.')
+    }
   }
 
-  function chooseLetter(blockName){
+  function addLetter(blockName){
     document.getElementById(blockName).innerText = letters[currentLetter];
     changeColor(blockName);
+    numberOfTurns++;
     checkForWin();
     currentLetter++;
     if(currentLetter >= letters.length){
       currentLetter=0;
     }
-    numberOfTurns++;
-    verifyTurn();
+    console.log(numberOfTurns);
+    // checkCatsGame();
   }
 
 
   function addToGridArray(blockName){
     grid[blockName[0]][blockName[2]] = letters[currentLetter];
     console.log(grid);
-    chooseLetter(blockName);
+    addLetter(blockName);
   }
 
   function changeColor(blockName){
-    document.getElementById(blockName).style.backgroundColor = colors[i];
-    i++;
-    if(i >= colors.length){
-      i=0;
+    document.getElementById(blockName).style.backgroundColor = colors[currentColor];
+    currentColor++;
+    if(currentColor >= colors.length){
+      currentColor=0;
     }
   }
 }
-function clearGrid(){
-    grid = [['0', '0', '0'],['0', '0', '0'],['0', '0', '0']];
-    document.getElementById('0-0').innerText = '';
-    document.getElementById('0-0').style.backgroundColor = '#C7C7C7';
-    console.log(grid);
-  }
-function verifyTurn(){
+
+function checkCatsGame(){
   if(numberOfTurns === 9){
-    swal('Cats game! It\'s a tie!');
+    swal('Cat\'s game! It\'s a tie! Click \"Reset Game\" to play again.');
   }
 }
+
 function checkForWin(){
-  // if(grid[0][0] == letters[j] && grid[0][1] == letters[j] && grid[0][2] == letters[j]){
-    // alert(letters[j] + ' wins!');
-  // }
-  var index0 = 0;
-  var index1 = 1;
-  var letterIsTrue = true;
+  var letterContribsToWin = true;
+  var winner = false;
 
   for(var i = 0; i < possibleWins.length; i++){
     for(var j = 0; j < possibleWins[i].length; j++){
-      if(grid[possibleWins[i][j][index0]][possibleWins[i][j][index1]] == letters[currentLetter]){
-        letterIsTrue = true;
+      if(grid[possibleWins[i][j][0]][possibleWins[i][j][1]] == letters[currentLetter]){
+        letterContribsToWin = true;
       }else{
-        letterIsTrue = false;
+        letterContribsToWin = false;
         break;
       }
     }
-    if(letterIsTrue === true){
-      // alert(letters[currentLetter] + ' wins!');
+    if(letterContribsToWin === true){
+      winner =true;
       swal(letters[currentLetter] + ' wins!');
+      keepPlaying = false;
+      break;
     }
+  }
+  if (!winner){
+    checkCatsGame();
+  }
+}
+
+function clearGrid(){
+  for(var i = 0; i < grid.length; i++){
+    for(var j = 0; j < grid[i].length; j++){
+      document.getElementById(i + '-' + j).innerText = '';
+      document.getElementById(i + '-' + j).style.backgroundColor = '#C7C7C7';
+    }
+    grid = [['', '', ''],['', '', ''],['', '', '']];
+    keepPlaying = true;
+    numberOfTurns = 0;
+    currentLetter = 0;
+    currentColor = 0;
   }
 }
